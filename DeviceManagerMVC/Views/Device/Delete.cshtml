@@ -1,0 +1,67 @@
+﻿@model DeviceManagerMVC.Models.Device
+
+@{
+    ViewData["Title"] = "Xóa thiết bị";
+}
+
+<div class="container mt-5">
+    <div class="row">
+        <div class="col-md-8 offset-md-2">
+            <h1 class="text-danger">@ViewData["Title"]</h1>
+
+            <div class="alert alert-warning mt-4" role="alert">
+                <i class="bi bi-exclamation-triangle"></i> 
+                <strong>Cảnh báo:</strong> Bạn sắp xóa thiết bị. Hành động này không thể hoàn tác.
+            </div>
+
+            <div class="card">
+                <div class="card-body">
+                    <div class="row mb-3">
+                        <div class="col-md-6">
+                            <h6 class="text-muted">Mã thiết bị</h6>
+                            <p class="fs-5">@Html.DisplayFor(model => model.DeviceCode)</p>
+                        </div>
+                        <div class="col-md-6">
+                            <h6 class="text-muted">Tên thiết bị</h6>
+                            <p class="fs-5">@Html.DisplayFor(model => model.DeviceName)</p>
+                        </div>
+                    </div>
+
+                    <div class="row mb-3">
+                        <div class="col-md-6">
+                            <h6 class="text-muted">Loại thiết bị</h6>
+                            <p class="fs-5">@Html.DisplayFor(model => model.Category)</p>
+                        </div>
+                        <div class="col-md-6">
+                            <h6 class="text-muted">Ngày mua</h6>
+                            <p class="fs-5">@Model.PurchaseDate.ToString("dd/MM/yyyy")</p>
+                        </div>
+                    </div>
+
+                    <div class="row mb-3">
+                        <div class="col-md-6">
+                            <h6 class="text-muted">Tình trạng</h6>
+                            <p class="fs-5">@Html.DisplayFor(model => model.Status)</p>
+                        </div>
+                        <div class="col-md-6">
+                            <h6 class="text-muted">Người sử dụng</h6>
+                            <p class="fs-5">@(Model.User != null ? Model.User.Name : "Chưa gán")</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <form asp-action="Delete" method="post" class="mt-4">
+                <input type="hidden" asp-for="Id" />
+                <div>
+                    <button type="submit" class="btn btn-danger">
+                        <i class="bi bi-trash"></i> Xóa thiết bị
+                    </button>
+                    <a asp-action="Index" class="btn btn-secondary">
+                        <i class="bi bi-arrow-left"></i> Hủy
+                    </a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

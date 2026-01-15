@@ -1,0 +1,78 @@
+﻿@model DeviceManagerMVC.Models.Device
+
+@{
+    ViewData["Title"] = "Cập nhật thông tin thiết bị";
+}
+
+<div class="container mt-5">
+    <div class="row">
+        <div class="col-md-8 offset-md-2">
+            <h1>@ViewData["Title"]</h1>
+
+            <form asp-action="Edit" method="post" class="mt-4">
+                <div asp-validation-summary="ModelOnly" class="alert alert-danger" role="alert"></div>
+
+                <input type="hidden" asp-for="Id" />
+
+                <div class="mb-3">
+                    <label asp-for="DeviceCode" class="form-label"></label>
+                    <input asp-for="DeviceCode" class="form-control" />
+                    <span asp-validation-for="DeviceCode" class="text-danger"></span>
+                </div>
+
+                <div class="mb-3">
+                    <label asp-for="DeviceName" class="form-label"></label>
+                    <input asp-for="DeviceName" class="form-control" />
+                    <span asp-validation-for="DeviceName" class="text-danger"></span>
+                </div>
+
+                <div class="mb-3">
+                    <label asp-for="Category" class="form-label"></label>
+                    <input asp-for="Category" class="form-control" />
+                </div>
+
+                <div class="mb-3">
+                    <label asp-for="PurchaseDate" class="form-label"></label>
+                    <input asp-for="PurchaseDate" type="date" class="form-control" />
+                </div>
+
+                <div class="mb-3">
+                    <label asp-for="Status" class="form-label"></label>
+                    <select asp-for="Status" class="form-control">
+                        <option value="">-- Chọn tình trạng --</option>
+                        <option value="Hoạt động" selected="@(Model.Status == "Hoạt động")">Hoạt động</option>
+                        <option value="Hỏng" selected="@(Model.Status == "Hỏng")">Hỏng</option>
+                        <option value="Bảo trì" selected="@(Model.Status == "Bảo trì")">Bảo trì</option>
+                        <option value="Không sử dụng" selected="@(Model.Status == "Không sử dụng")">Không sử dụng</option>
+                    </select>
+                </div>
+
+                <div class="mb-3">
+                    <label asp-for="UserId" class="form-label"></label>
+                    <select asp-for="UserId" class="form-control">
+                        <option value="">-- Không gán người sử dụng --</option>
+                        @foreach (var user in ViewBag.Users)
+                        {
+                            <option value="@user.Id" selected="@(Model.UserId == user.Id)">@user.Name - @user.Department</option>
+                        }
+                    </select>
+                </div>
+
+                <div class="mt-4">
+                    <button type="submit" class="btn btn-primary">
+                        <i class="bi bi-check-circle"></i> Cập nhật
+                    </button>
+                    <a asp-action="Index" class="btn btn-secondary">
+                        <i class="bi bi-arrow-left"></i> Hủy
+                    </a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

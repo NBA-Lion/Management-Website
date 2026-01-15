@@ -1,0 +1,76 @@
+﻿@model DeviceManagerMVC.Models.Device
+
+@{
+    ViewData["Title"] = "Thêm thiết bị mới";
+}
+
+<div class="container mt-5">
+    <div class="row">
+        <div class="col-md-8 offset-md-2">
+            <h1>@ViewData["Title"]</h1>
+
+            <form asp-action="Create" method="post" class="mt-4">
+                <div asp-validation-summary="ModelOnly" class="alert alert-danger" role="alert"></div>
+
+                <div class="mb-3">
+                    <label asp-for="DeviceCode" class="form-label"></label>
+                    <input asp-for="DeviceCode" class="form-control" placeholder="VD: DEV001" />
+                    <span asp-validation-for="DeviceCode" class="text-danger"></span>
+                </div>
+
+                <div class="mb-3">
+                    <label asp-for="DeviceName" class="form-label"></label>
+                    <input asp-for="DeviceName" class="form-control" placeholder="VD: Laptop Dell" />
+                    <span asp-validation-for="DeviceName" class="text-danger"></span>
+                </div>
+
+                <div class="mb-3">
+                    <label asp-for="Category" class="form-label"></label>
+                    <input asp-for="Category" class="form-control" placeholder="VD: Máy tính xách tay" />
+                </div>
+
+                <div class="mb-3">
+                    <label asp-for="PurchaseDate" class="form-label"></label>
+                    <input asp-for="PurchaseDate" type="date" class="form-control" />
+                </div>
+
+                <div class="mb-3">
+                    <label asp-for="Status" class="form-label"></label>
+                    <select asp-for="Status" class="form-control">
+                        <option value="">-- Chọn tình trạng --</option>
+                        <option value="Hoạt động">Hoạt động</option>
+                        <option value="Hỏng">Hỏng</option>
+                        <option value="Bảo trì">Bảo trì</option>
+                        <option value="Không sử dụng">Không sử dụng</option>
+                    </select>
+                </div>
+
+                <div class="mb-3">
+                    <label asp-for="UserId" class="form-label"></label>
+                    <select asp-for="UserId" class="form-control">
+                        <option value="">-- Không gán người sử dụng --</option>
+                        @foreach (var user in ViewBag.Users)
+                        {
+                            <option value="@user.Id">@user.Name - @user.Department</option>
+                        }
+                    </select>
+                </div>
+
+                <div class="mt-4">
+                    <button type="submit" class="btn btn-primary">
+                        <i class="bi bi-check-circle"></i> Thêm mới
+                    </button>
+                    <a asp-action="Index" class="btn btn-secondary">
+                        <i class="bi bi-arrow-left"></i> Hủy
+                    </a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

@@ -1,0 +1,64 @@
+﻿@model DeviceManagerMVC.Models.User
+
+@{
+    ViewData["Title"] = "Xóa người dùng";
+}
+
+<div class="container mt-5">
+    <div class="row">
+        <div class="col-md-8 offset-md-2">
+            <h1 class="text-danger">@ViewData["Title"]</h1>
+
+            <div class="alert alert-warning mt-4" role="alert">
+                <i class="bi bi-exclamation-triangle"></i> 
+                <strong>Cảnh báo:</strong> Bạn sắp xóa người dùng. Hành động này không thể hoàn tác.
+            </div>
+
+            <div class="card">
+                <div class="card-body">
+                    <div class="row mb-3">
+                        <div class="col-md-6">
+                            <h6 class="text-muted">Tên</h6>
+                            <p class="fs-5">@Html.DisplayFor(model => model.Name)</p>
+                        </div>
+                        <div class="col-md-6">
+                            <h6 class="text-muted">Email</h6>
+                            <p class="fs-5">@Html.DisplayFor(model => model.Email)</p>
+                        </div>
+                    </div>
+
+                    <div class="row mb-3">
+                        <div class="col-md-6">
+                            <h6 class="text-muted">Số điện thoại</h6>
+                            <p class="fs-5">@Html.DisplayFor(model => model.PhoneNumber)</p>
+                        </div>
+                        <div class="col-md-6">
+                            <h6 class="text-muted">Phòng ban</h6>
+                            <p class="fs-5">@Html.DisplayFor(model => model.Department)</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            @if (Model.Devices != null && Model.Devices.Any())
+            {
+                <div class="alert alert-info mt-4" role="alert">
+                    <i class="bi bi-info-circle"></i>
+                    <strong>Lưu ý:</strong> Người dùng này đang được cấp phát @Model.Devices.Count() thiết bị. Hãy gán lại các thiết bị cho người dùng khác trước khi xóa.
+                </div>
+            }
+
+            <form asp-action="Delete" method="post" class="mt-4">
+                <input type="hidden" asp-for="Id" />
+                <div>
+                    <button type="submit" class="btn btn-danger" @(Model.Devices != null && Model.Devices.Any() ? "disabled" : "")>
+                        <i class="bi bi-trash"></i> Xóa người dùng
+                    </button>
+                    <a asp-action="Index" class="btn btn-secondary">
+                        <i class="bi bi-arrow-left"></i> Hủy
+                    </a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
